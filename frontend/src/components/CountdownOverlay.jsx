@@ -22,12 +22,15 @@ export default function CountdownOverlay({ value, show = true, color = "#7C3AED"
 
   return (
     <Box
-      position="absolute"
-      inset={0}
       display="flex"
       alignItems="center"
       justifyContent="center"
       sx={{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
         background: isShutter ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.5)",
         backdropFilter: "blur(4px)",
         borderRadius: "inherit",
