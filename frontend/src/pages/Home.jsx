@@ -142,45 +142,6 @@ export default function Home({ config }) {
       {/* ── Bottom bar ───────────────────────────────────────────── */}
       <Box
         display="flex"
-<<<<<<< HEAD
-        flexDirection="column"
-        alignItems="center"
-        gap={1.5}
-        py={3}
-        sx={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
-      >
-        {isError && (
-          <Alert severity="error" onClose={reset} sx={{ maxWidth: 500 }}>
-            {error}
-          </Alert>
-        )}
-
-        {!isDone && (
-          <Button
-            variant="contained"
-            size="large"
-            startIcon={
-              isRunning ? (
-                <CircularProgress size={20} color="inherit" />
-              ) : (
-                <CameraAltIcon />
-              )
-            }
-            onClick={startSession}
-            disabled={isRunning}
-            sx={{ minWidth: 240, fontSize: "1.1rem" }}
-          >
-            {isIdle || isError ? "Lancer la séance" : "En cours…"}
-          </Button>
-        )}
-
-        {/* Photo progress indicator */}
-        {isRunning && (
-          <Typography variant="caption" color="text.secondary">
-            Photo {photos.length + 1} / {numberOfPhotos}
-          </Typography>
-        )}
-=======
         flexDirection="row"
         alignItems="center"
         px={3}
@@ -225,7 +186,6 @@ export default function Home({ config }) {
 
         {/* Right: espace symétrique */}
         <Box flex={1} />
->>>>>>> d6fb0c4 (Initial commit)
       </Box>
     </Box>
   );
