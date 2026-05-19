@@ -114,7 +114,11 @@ export default function Home({ config }) {
               }}
             >
               <WebcamPreview ref={webcamRef} />
-              <CountdownOverlay value={countdown} />
+              <CountdownOverlay
+                value={countdown}
+                show={config?.show_timer ?? true}
+                color={config?.couleur_principale ?? "#7C3AED"}
+              />
 
               {/* Processing overlay */}
               {state === "processing" && (

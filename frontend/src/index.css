@@ -34,15 +34,31 @@ body {
   background: rgba(255, 255, 255, 0.4);
 }
 
-/* Countdown pulse animation */
-@keyframes pulse-scale {
-  0%   { transform: scale(1);    opacity: 1; }
-  50%  { transform: scale(1.15); opacity: 0.8; }
-  100% { transform: scale(1);    opacity: 1; }
+/* Countdown ring drain (SVG stroke-dashoffset) */
+@keyframes ring-drain {
+  from { stroke-dashoffset: 0; }
+  to   { stroke-dashoffset: 502.655; }
 }
 
-.countdown-pulse {
-  animation: pulse-scale 0.9s ease-in-out infinite;
+/* Number entry: zoom-in with spring */
+@keyframes countdown-enter {
+  from { opacity: 0; transform: scale(1.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.countdown-enter {
+  animation: countdown-enter 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Shutter emoji pop */
+@keyframes shutter-pop {
+  0%   { opacity: 0; transform: scale(0.4); }
+  60%  { opacity: 1; transform: scale(1.25); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.shutter-pop {
+  animation: shutter-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* Fade-in for montage reveal */

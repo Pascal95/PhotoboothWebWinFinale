@@ -170,9 +170,14 @@ export default function Admin({ onConfigSaved }) {
         {/* ── Session ───────────────────────────────────────── */}
         <Box display="flex" flexDirection="column" gap={2.5}>
           <SectionTitle>Session photo</SectionTitle>
-          <Box display="flex" gap={2}>
+          <Box display="flex" gap={2} alignItems="center">
             <TextField label="Nombre de photos" type="number" value={config.nombre_photos} onChange={(e) => set("nombre_photos", Number(e.target.value))} inputProps={{ min: 1, max: 8 }} sx={{ flex: 1 }} />
-            <TextField label="Durée du timer (s)" type="number" value={config.timer_seconds} onChange={(e) => set("timer_seconds", Number(e.target.value))} inputProps={{ min: 1, max: 10 }} sx={{ flex: 1 }} />
+            <TextField label="Durée du timer (s)" type="number" value={config.timer_seconds} onChange={(e) => set("timer_seconds", Number(e.target.value))} inputProps={{ min: 1, max: 10 }} disabled={!(config.show_timer ?? true)} sx={{ flex: 1 }} />
+            <FormControlLabel
+              control={<Switch checked={config.show_timer ?? true} onChange={(e) => set("show_timer", e.target.checked)} />}
+              label="Afficher le timer"
+              sx={{ whiteSpace: "nowrap" }}
+            />
           </Box>
 
           {/* Template */}
