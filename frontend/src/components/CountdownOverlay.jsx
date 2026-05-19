@@ -1,8 +1,19 @@
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, keyframes } from "@mui/material";
 
 const R = 80;
 const CIRC = 502.655; // 2 * Math.PI * 80
+
+const numberPop = keyframes`
+  from { transform: scale(1.5); }
+  to   { transform: scale(1); }
+`;
+
+const shutterPop = keyframes`
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+`;
 
 export default function CountdownOverlay({ value, show = true, color = "#7C3AED" }) {
   if (!show || value === null || value === undefined) return null;
@@ -25,12 +36,11 @@ export default function CountdownOverlay({ value, show = true, color = "#7C3AED"
     >
       {isShutter ? (
         <Typography
-          className="shutter-pop"
           sx={{
             fontSize: "6rem",
             lineHeight: 1,
             userSelect: "none",
-            filter: "drop-shadow(0 0 24px rgba(255,255,255,0.9))",
+            animation: `${shutterPop} 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`,
           }}
         >
           📸
@@ -59,7 +69,7 @@ export default function CountdownOverlay({ value, show = true, color = "#7C3AED"
               stroke="rgba(255,255,255,0.12)"
               strokeWidth={7}
             />
-            {/* Draining ring — key forces remount → animation restarts each tick */}
+            {/* Draining ring — key remounts the element to restart the CSS animation */}
             <circle
               key={value}
               r={R}
@@ -79,10 +89,9 @@ export default function CountdownOverlay({ value, show = true, color = "#7C3AED"
             />
           </svg>
 
-          {/* Number */}
+          {/* Number — toujours visible, animation de scale uniquement */}
           <Typography
             key={`n-${value}`}
-            className="countdown-enter"
             sx={{
               fontSize: "5.5rem",
               fontWeight: 900,
@@ -91,6 +100,7 @@ export default function CountdownOverlay({ value, show = true, color = "#7C3AED"
               userSelect: "none",
               zIndex: 1,
               textShadow: `0 0 32px ${color}, 0 4px 20px rgba(0,0,0,0.6)`,
+              animation: `${numberPop} 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`,
             }}
           >
             {value}
