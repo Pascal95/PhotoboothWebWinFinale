@@ -48,7 +48,7 @@ export function usePhotobooth(config) {
       for (let i = seconds; i >= 1; i--) {
         if (cancelledRef.current) return false;
         setCountdown(i);
-        if (i === 1 && onFinalTick) onFinalTick();
+        if (i === 2 && onFinalTick) onFinalTick();
         await delay(1000);
       }
       setCountdown("📸");
