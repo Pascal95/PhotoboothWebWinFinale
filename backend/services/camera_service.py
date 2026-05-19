@@ -43,11 +43,7 @@ def _capture_canon(output_path: Path) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     result = subprocess.run(
-<<<<<<< HEAD
         [str(digicam), "/capture", "/filename", str(output_path)],
-=======
-        [str(digicam), "/capture", f"/filename:{output_path}"],
->>>>>>> d6fb0c4 (Initial commit)
         capture_output=True,
         text=True,
         timeout=30,
@@ -74,7 +70,6 @@ def _capture_canon(output_path: Path) -> Path:
 
 # ── Webcam (OpenCV) ───────────────────────────────────────────────────────────
 
-<<<<<<< HEAD
 def _open_webcam(index: int) -> cv2.VideoCapture:
     """Try MSMF → DSHOW → any backend, return the first that opens."""
     for backend in (cv2.CAP_MSMF, cv2.CAP_DSHOW, cv2.CAP_ANY):
@@ -85,8 +80,6 @@ def _open_webcam(index: int) -> cv2.VideoCapture:
     raise RuntimeError(f"Cannot open webcam at index {index} with any backend")
 
 
-=======
->>>>>>> d6fb0c4 (Initial commit)
 def _capture_webcam(output_path: Path) -> Path:
     """
     Capture a single frame from the configured webcam using OpenCV.
@@ -94,11 +87,7 @@ def _capture_webcam(output_path: Path) -> Path:
     then saves the last one.
     """
     index = get_config("webcam_index", WEBCAM_DEFAULT_INDEX)
-<<<<<<< HEAD
     cap = _open_webcam(index)
-=======
-    cap = cv2.VideoCapture(index, cv2.CAP_DSHOW)  # CAP_DSHOW = Windows DirectShow
->>>>>>> d6fb0c4 (Initial commit)
 
     if not cap.isOpened():
         raise RuntimeError(f"Cannot open webcam at index {index}")
@@ -147,17 +136,10 @@ def list_webcam_devices() -> list[dict]:
     """
     devices = []
     for index in range(6):
-<<<<<<< HEAD
         for backend in (cv2.CAP_MSMF, cv2.CAP_DSHOW, cv2.CAP_ANY):
             cap = cv2.VideoCapture(index, backend)
             if cap.isOpened():
                 devices.append({"index": index, "label": f"Camera {index}"})
                 cap.release()
                 break
-=======
-        cap = cv2.VideoCapture(index, cv2.CAP_DSHOW)
-        if cap.isOpened():
-            devices.append({"index": index, "label": f"Camera {index}"})
->>>>>>> d6fb0c4 (Initial commit)
-            cap.release()
     return devices

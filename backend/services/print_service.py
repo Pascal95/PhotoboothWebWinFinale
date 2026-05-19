@@ -107,9 +107,5 @@ def list_printers() -> list[str]:
     """Return all printer names registered with Windows."""
     if not WIN32_AVAILABLE:
         return []
-<<<<<<< HEAD
     flags = win32print.PRINTER_ENUM_LOCAL | win32print.PRINTER_ENUM_CONNECTIONS
     return [p[2] for p in win32print.EnumPrinters(flags)]
-=======
-    return [p[2] for p in win32print.EnumPrinters(win32print.PRINTER_ENUM_LOCAL)]
->>>>>>> d6fb0c4 (Initial commit)

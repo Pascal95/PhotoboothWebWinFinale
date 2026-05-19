@@ -42,10 +42,7 @@ async def create_template(
     nom: str = Form(...),
     nombre_photos: int = Form(...),
     cadres: str = Form(...),          # JSON-encoded list of cadre objects
-<<<<<<< HEAD
     mode: str = Form("classic"),      # "classic" or "overlay"
-=======
->>>>>>> d6fb0c4 (Initial commit)
     image: UploadFile = File(...),
 ):
     ensure_dir(TEMPLATES_DIR)
@@ -71,10 +68,7 @@ async def create_template(
         "image_fond": image_filename,
         "nombre_photos": nombre_photos,
         "cadres": cadres_list,
-<<<<<<< HEAD
         **({"mode": "overlay"} if mode == "overlay" else {}),
-=======
->>>>>>> d6fb0c4 (Initial commit)
     }
     json_path = TEMPLATES_DIR / f"{nom}.json"
     with open(json_path, "w", encoding="utf-8") as f:

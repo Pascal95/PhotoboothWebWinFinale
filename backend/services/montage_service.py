@@ -2,7 +2,6 @@
 Montage service.
 Composites N captured photos onto a template background image
 according to the cadres (frame positions) defined in the template JSON.
-<<<<<<< HEAD
 
 Rendering modes (template JSON field "mode"):
   "classic"  (default) – template image is the background; photos drawn on top.
@@ -13,8 +12,6 @@ Rendering modes (template JSON field "mode"):
 
 Optional JSON field "couleur_fond" (overlay mode only):
   [R, G, B] tuple for the canvas background colour. Defaults to white [255,255,255].
-=======
->>>>>>> d6fb0c4 (Initial commit)
 """
 
 import json
@@ -37,19 +34,11 @@ def _load_template(template_name: str) -> dict:
         return json.load(f)
 
 
-<<<<<<< HEAD
 def _load_template_image(template: dict) -> Image.Image:
     """Open and return the template image (background or overlay) as RGBA."""
     bg_path = TEMPLATES_DIR / template["image_fond"]
     if not bg_path.exists():
         raise FileNotFoundError(f"Template image not found: {bg_path}")
-=======
-def _load_background(template: dict) -> Image.Image:
-    """Open and return the template background image."""
-    bg_path = TEMPLATES_DIR / template["image_fond"]
-    if not bg_path.exists():
-        raise FileNotFoundError(f"Template background not found: {bg_path}")
->>>>>>> d6fb0c4 (Initial commit)
     return Image.open(bg_path).convert("RGBA")
 
 
@@ -72,7 +61,6 @@ def generate_montage(photo_paths: list[str]) -> str:
     """
     template_name = get_config("template", "default")
     template = _load_template(template_name)
-<<<<<<< HEAD
     template_image = _load_template_image(template)
 
     overlay_mode = template.get("mode", "classic") == "overlay"
@@ -84,9 +72,6 @@ def generate_montage(photo_paths: list[str]) -> str:
     else:
         # Classic: template image is the background
         canvas = template_image.copy()
-=======
-    canvas = _load_background(template)
->>>>>>> d6fb0c4 (Initial commit)
 
     cadres = template.get("cadres", [])
     if len(photo_paths) < len(cadres):
@@ -99,13 +84,10 @@ def generate_montage(photo_paths: list[str]) -> str:
         photo_path = STATIC_DIR / rel_path
         _paste_photo(canvas, photo_path, cadre)
 
-<<<<<<< HEAD
     if overlay_mode:
         # Composite the template (with its transparent cut-outs) on top of photos
         canvas.alpha_composite(template_image)
 
-=======
->>>>>>> d6fb0c4 (Initial commit)
     # Flatten RGBA → RGB before saving as PNG
     final = canvas.convert("RGB")
 

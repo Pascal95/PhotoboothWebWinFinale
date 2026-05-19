@@ -6,13 +6,9 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-<<<<<<< HEAD
   FormControlLabel,
   IconButton,
   Switch,
-=======
-  IconButton,
->>>>>>> d6fb0c4 (Initial commit)
   TextField,
   Typography,
   Alert,
@@ -28,10 +24,7 @@ export default function TemplateCreatorModal({ open, onClose, onCreated }) {
   const [nom, setNom] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [cadres, setCadres] = useState([{ ...EMPTY_CADRE }]);
-<<<<<<< HEAD
   const [overlayMode, setOverlayMode] = useState(false);
-=======
->>>>>>> d6fb0c4 (Initial commit)
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -59,10 +52,7 @@ export default function TemplateCreatorModal({ open, onClose, onCreated }) {
     form.append("nom", nom.trim());
     form.append("nombre_photos", cadres.length);
     form.append("cadres", JSON.stringify(cadres));
-<<<<<<< HEAD
     form.append("mode", overlayMode ? "overlay" : "classic");
-=======
->>>>>>> d6fb0c4 (Initial commit)
     form.append("image", imageFile);
 
     try {
@@ -80,10 +70,7 @@ export default function TemplateCreatorModal({ open, onClose, onCreated }) {
     setNom("");
     setImageFile(null);
     setCadres([{ ...EMPTY_CADRE }]);
-<<<<<<< HEAD
     setOverlayMode(false);
-=======
->>>>>>> d6fb0c4 (Initial commit)
     setError(null);
     onClose();
   };
@@ -118,7 +105,6 @@ export default function TemplateCreatorModal({ open, onClose, onCreated }) {
             />
           </Button>
 
-<<<<<<< HEAD
           <Box
             sx={{
               p: 2,
@@ -143,8 +129,6 @@ export default function TemplateCreatorModal({ open, onClose, onCreated }) {
             </Typography>
           </Box>
 
-=======
->>>>>>> d6fb0c4 (Initial commit)
           <Typography variant="subtitle2" fontWeight={700}>
             Cadres ({cadres.length})
           </Typography>
