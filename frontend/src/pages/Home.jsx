@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -12,6 +12,7 @@ import HistoryIcon from "@mui/icons-material/History";
 import SettingsIcon from "@mui/icons-material/Settings";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 
+import { fetchPrintCount } from "../api/photobooth";
 import { usePhotobooth } from "../hooks/usePhotobooth";
 import WebcamPreview from "../components/WebcamPreview";
 import CountdownOverlay from "../components/CountdownOverlay";
@@ -36,6 +37,16 @@ export default function Home({ config }) {
     startSession,
     reset,
   } = usePhotobooth(config);
+
+  const [printCount, setPrintCount] = useState(null);
+
+  useEffect(() => {
+    fetchPrintCount().then(setPrintCount).catch(() => setPrintCount(0));
+  }, []);
+
+  const handlePrinted = () => {
+    fetchPrintCount().then(setPrintCount).catch(() => {});
+  };
 
   const numberOfPhotos = config?.nombre_photos ?? 4;
   const titleColor = config?.couleur_titre || "#fff";
@@ -98,6 +109,7 @@ export default function Home({ config }) {
             <MontageDisplay
               montagePath={montagePath}
               onRestart={reset}
+              onPrinted={handlePrinted}
               copies={config?.nombre_impressions ?? 1}
             />
           ) : (
@@ -188,8 +200,14 @@ export default function Home({ config }) {
           )}
         </Box>
 
-        {/* Right: espace symétrique */}
-        <Box flex={1} />
+        {/* Right: compteur d'impressions */}
+        <Box flex={1} display="flex" justifyContent="flex-end" alignItems="center">
+          {printCount !== null && (
+            <Typography variant="caption" sx={{ color: "rgba(255,255,255,0.35)", userSelect: "none" }}>
+              {printCount} impression{printCount !== 1 ? "s" : ""}
+            </Typography>
+          )}
+        </Box>
       </Box>
     </Box>
   );

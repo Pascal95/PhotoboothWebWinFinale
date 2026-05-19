@@ -52,6 +52,13 @@ export const uploadLogo = (file) => {
   }).then((r) => r.data);
 };
 
+// ── Print counter ─────────────────────────────────────────────────────────────
+export const fetchPrintCount = () =>
+  client.get("/print-count").then((r) => r.data.count);
+
+export const resetPrintCount = () =>
+  client.post("/print-count/reset").then((r) => r.data.count);
+
 // ── Camera devices ────────────────────────────────────────────────────────────
 export const fetchCameraDevices = () =>
   client.get("/camera/devices").then((r) => r.data);

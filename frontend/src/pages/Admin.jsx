@@ -20,8 +20,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddIcon from "@mui/icons-material/Add";
 import {
   fetchConfig,
+  fetchPrintCount,
   fetchPrinters,
   fetchTemplates,
+  resetPrintCount,
   saveConfig,
   uploadLogo,
 } from "../api/photobooth";
@@ -50,16 +52,23 @@ export default function Admin({ onConfigSaved }) {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState(null);
   const [showTemplateModal, setShowTemplateModal] = useState(false);
+  const [printCount, setPrintCount] = useState(null);
 
   useEffect(() => {
-    Promise.all([fetchConfig(), fetchTemplates(), fetchPrinters()]).then(
-      ([cfg, tplData, printerData]) => {
+    Promise.all([fetchConfig(), fetchTemplates(), fetchPrinters(), fetchPrintCount()]).then(
+      ([cfg, tplData, printerData, count]) => {
         setConfig(cfg);
         setTemplates(tplData.templates || []);
         setPrinters(printerData.printers || []);
+        setPrintCount(count);
       }
     );
   }, []);
+
+  const handleResetCount = async () => {
+    const count = await resetPrintCount();
+    setPrintCount(count);
+  };
 
   const set = (key, value) => setConfig((prev) => ({ ...prev, [key]: value }));
 
@@ -234,6 +243,14 @@ export default function Admin({ onConfigSaved }) {
               label="Impression automatique"
             />
             <TextField label="Nombre de copies" type="number" value={config.nombre_impressions} onChange={(e) => set("nombre_impressions", Number(e.target.value))} inputProps={{ min: 1, max: 10 }} sx={{ width: 160 }} />
+          </Box>
+          <Box display="flex" alignItems="center" gap={2}>
+            <Typography variant="body2" color="text.secondary">
+              Total imprimé : <strong>{printCount ?? "…"}</strong> photo{printCount !== 1 ? "s" : ""}
+            </Typography>
+            <Button size="small" variant="outlined" color="warning" onClick={handleResetCount}>
+              Remettre à zéro
+            </Button>
           </Box>
         </Box>
 

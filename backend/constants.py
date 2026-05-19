@@ -14,6 +14,7 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 UPLOADS_DIR = BASE_DIR / "uploads"
 ASSETS_DIR = BASE_DIR / "assets"
 CONFIG_PATH = BASE_DIR / "config.json"
+COUNTER_PATH = BASE_DIR / "print_counter.json"
 
 # ── Camera ────────────────────────────────────────────────────────────────────
 CAMERA_MODE_CANON = "canon"

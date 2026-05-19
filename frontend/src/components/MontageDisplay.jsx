@@ -8,7 +8,7 @@ import { printPhoto } from "../api/photobooth";
  * Shown after all photos are captured.
  * Displays the final montage with print and restart actions.
  */
-export default function MontageDisplay({ montagePath, onRestart, copies = 1 }) {
+export default function MontageDisplay({ montagePath, onRestart, onPrinted, copies = 1 }) {
   const [printing, setPrinting] = React.useState(false);
   const [printMessage, setPrintMessage] = React.useState(null);
 
@@ -20,6 +20,7 @@ export default function MontageDisplay({ montagePath, onRestart, copies = 1 }) {
     try {
       await printPhoto(montagePath, copies);
       setPrintMessage("Impression lancée !");
+      onPrinted?.();
     } catch (err) {
       setPrintMessage(err.response?.data?.detail || "Erreur d'impression");
     } finally {
