@@ -27,11 +27,8 @@ DIGICAM_CMD = r"C:\Program Files (x86)\digiCamControl\CameraControlCmd.exe"
 CANON_CAPTURE_WAIT_SECONDS = 3
 
 # ── Printing ──────────────────────────────────────────────────────────────────
-<<<<<<< HEAD
+
 DEFAULT_PRINTER_NAME = "DP-DS620"
-=======
-DEFAULT_PRINTER_NAME = "DNP DS620"
->>>>>>> d6fb0c4 (Initial commit)
 
 # DNP DS620 native resolution: 300 DPI, 4x6" media (1200x1800 px)
 DNP_PRINT_WIDTH_PX = 1800
