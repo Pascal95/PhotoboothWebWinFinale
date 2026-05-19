@@ -1,0 +1,14 @@
+{
+  "nom": "AnnivVip",
+  "image_fond": "AnnivVip.png",
+  "mode": "overlay",
+  "nombre_photos": 1,
+  "cadres": [
+    {
+      "x": 250,
+      "y": 250,
+      "width": 1490,
+      "height": 1002
+    }
+  ]
+}
