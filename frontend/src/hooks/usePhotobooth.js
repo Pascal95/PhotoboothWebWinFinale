@@ -44,10 +44,11 @@ export function usePhotobooth(config) {
   }, []);
 
   const runCountdown = useCallback(
-    async (seconds) => {
+    async (seconds, onFinalTick) => {
       for (let i = seconds; i >= 1; i--) {
         if (cancelledRef.current) return false;
         setCountdown(i);
+        if (i === 1 && onFinalTick) onFinalTick();
         await delay(1000);
       }
       setCountdown("📸");
@@ -69,15 +70,18 @@ export function usePhotobooth(config) {
     for (let i = 0; i < numberOfPhotos; i++) {
       if (cancelledRef.current) return;
 
-      // Countdown before each shot
+      // Countdown — lance l'appel capture dès que "1" s'affiche
       setState(SESSION_STATES.COUNTDOWN);
-      const ok = await runCountdown(timerSeconds);
+      let earlyCapture = null;
+      const ok = await runCountdown(timerSeconds, () => {
+        earlyCapture = capturePhoto();
+      });
       if (!ok || cancelledRef.current) return;
 
-      // Capture
+      // Capture — attend la promesse déjà lancée (ou démarre si timer_seconds < 1)
       setState(SESSION_STATES.CAPTURING);
       try {
-        const result = await capturePhoto();
+        const result = await (earlyCapture ?? capturePhoto());
         capturedPaths.push(result.photo_path);
         setPhotos([...capturedPaths]);
       } catch (err) {
